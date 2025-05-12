@@ -43,9 +43,12 @@ void readSensorData(){
     return;
   }
 
+  // Read RSSI
+  int rssi = WiFi.RSSI();
+
   // Publish temperature and humidity data
-  String payload = String("Temperature: ") + String(temp) + " C, Humidity: " + String(hum) + " %";
-  client.publish("iot/data", payload.c_str());
+  String payload = String("Temperature: ") + String(temp) + " C, Humidity: " + String(hum) + " %, RSSI: " + String(rssi) + " dBm";
+  client.publish("iot/data/esp32_1", payload.c_str());
 
   Serial.print("Data sent to MQTT broker: ");
   Serial.println(payload);
